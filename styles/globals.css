@@ -62,7 +62,7 @@ a {
 
 @font-face {
   font-family: 'Saira';
-  src: url('../public/static/fonts/Saira-VariableFont_wdth,wght.ttf') format('truetype');
+  src: url('../public/static/fonts/Saira-VariableFont_wdth.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
