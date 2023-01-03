@@ -38,6 +38,9 @@ module.exports = {
         hideImage: 'hideImage 1.9s',
         hideNavBarContent: 'hideNavBarContent 1.2s',
         hideBlueBorder: 'hideBlueBorder 0.6s',
+      },
+      backgroundImage: {
+        'roadmap': "url('/public/static/images/Roadmap/bg-roadmap.png')"
       }
     },
   },
