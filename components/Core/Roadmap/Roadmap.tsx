@@ -37,18 +37,43 @@ interface RoadmapNavigation {
 // ecrit une fonction qui prend en parametre un index et qui retourne un div avec un index
 
 const CarreDeNavigation = (props: RoadmapNavigation) => {
+  let { indexNavigation, direction } = props;
+
+  const addIndex = () => {
+    indexNavigation = indexNavigation + 1;
+  };
+
+  const minusIndex = () => {
+    indexNavigation = indexNavigation - 1;
+  };
+
+  const indexManager = () => {
+    if (direction === 'right') {
+      addIndex();
+    } else {
+      minusIndex();
+    }
+  };
+
+  if (indexNavigation === 0 && direction === 'left') {
+    return (
+      <div className="h-[12px] w-[12px] border-black border-t-2 border-r-2 border-solid transform rotate-45 opacity-25"></div>
+    );
+  }
+
   return (
     <>
-      <div className="h-[12px] w-[12px] border-black border-t-2 border-r-2 border-solid transform rotate-45">
-        {props.indexNavigation}
+      <div
+        className="h-[12px] w-[12px] border-black border-t-2 border-r-2 border-solid transform rotate-45"
+        onClick={indexManager}>
+        {indexNavigation}
       </div>
-      <div>{props.direction}</div>
     </>
   );
 };
 
 const MobileFirstRoadmap = () => {
-  const indexRoadmap: RoadmapNavigation = { indexNavigation: 0 };
+  let indexRoadmap: RoadmapNavigation = { indexNavigation: 0 };
 
   return (
     <>
@@ -61,7 +86,7 @@ const MobileFirstRoadmap = () => {
           <div className="bg-black h-[10px] w-[50px] rounded-full"></div>
           <div className="bg-black h-[10px] w-[50px] rounded-full"></div>
         </div>
-        <div className="flex space-x-[500px] mt-2 mb-4 place-content-center">
+        <div className="flex space-x-[325px] mt-2 mb-4 place-content-center">
           <div className="scale-x-[-1]">
             <CarreDeNavigation indexNavigation={indexRoadmap.indexNavigation} direction="left" />
           </div>
