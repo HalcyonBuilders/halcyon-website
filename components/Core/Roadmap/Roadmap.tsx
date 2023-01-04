@@ -29,21 +29,31 @@ const SaveToFullResponsive = () => {
   );
 };
 
-const CarreDeNavigation = ({index}) => {
+interface RoadmapNavigation {
+  indexNavigation: number;
+  direction?: 'right' | 'left';
+}
+
+// ecrit une fonction qui prend en parametre un index et qui retourne un div avec un index
+
+const CarreDeNavigation = (props: RoadmapNavigation) => {
   return (
     <>
-      <div className="h-[12px] w-[12px] border-black border-t-2 border-r-2 border-solid transform rotate-45">{index}</div>
+      <div className="h-[12px] w-[12px] border-black border-t-2 border-r-2 border-solid transform rotate-45">
+        {props.indexNavigation}
+      </div>
+      <div>{props.direction}</div>
     </>
   );
 };
 
 const MobileFirstRoadmap = () => {
-  const index = 0;
+  const indexRoadmap: RoadmapNavigation = { indexNavigation: 0 };
 
   return (
     <>
       <div className="bg-red-700 mx-auto h-[400px] w-[400px] rounded-lg md:w-[600px] pt-2">
-        <div className="flex space-x-4 place-content-center" >
+        <div className="flex space-x-4 place-content-center">
           {/* Mettre mes divs pour la roadmap */}
           <div className="bg-black h-[10px] w-[50px] rounded-full"></div>
           <div className="bg-black h-[10px] w-[50px] rounded-full"></div>
@@ -53,20 +63,20 @@ const MobileFirstRoadmap = () => {
         </div>
         <div className="flex space-x-[500px] mt-2 mb-4 place-content-center">
           <div className="scale-x-[-1]">
-            <CarreDeNavigation index={index} />
+            <CarreDeNavigation indexNavigation={indexRoadmap.indexNavigation} direction="left" />
           </div>
           <div className="flex justify-end">
-            <CarreDeNavigation index={index}  />
+            <CarreDeNavigation indexNavigation={indexRoadmap.indexNavigation} direction="right" />
           </div>
         </div>
-        <div className='bg-white h-[300px] w-[300px] mx-auto'>
+        <div className="bg-white h-[300px] w-[300px] mx-auto">
           <Image
-                  className="hidden lg:flex lg:text-center"
-                  src="/static/images/Roadmap/bg-roadmap.png"
-                  alt="logolgAndUp"
-                  width="500"
-                  height="500"
-                />
+            className="hidden lg:flex lg:text-center"
+            src="/static/images/Roadmap/bg-roadmap.png"
+            alt="logolgAndUp"
+            width="500"
+            height="500"
+          />
         </div>
       </div>
       <div className="bg-roadmap h-[100px] w-[100px]"></div>
