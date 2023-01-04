@@ -29,19 +29,21 @@ const SaveToFullResponsive = () => {
   );
 };
 
-const CarreDeNavigation = () => {
+const CarreDeNavigation = ({index}) => {
   return (
     <>
-      <div className="h-[12px] w-[12px] border-black border-t-2 border-r-2 border-solid transform rotate-45"></div>
+      <div className="h-[12px] w-[12px] border-black border-t-2 border-r-2 border-solid transform rotate-45">{index}</div>
     </>
   );
 };
 
 const MobileFirstRoadmap = () => {
+  const index = 0;
+
   return (
     <>
       <div className="bg-red-700 mx-auto h-[400px] w-[400px] rounded-lg md:w-[600px] pt-2">
-        <div className="flex space-x-4 place-content-center">
+        <div className="flex space-x-4 place-content-center" >
           {/* Mettre mes divs pour la roadmap */}
           <div className="bg-black h-[10px] w-[50px] rounded-full"></div>
           <div className="bg-black h-[10px] w-[50px] rounded-full"></div>
@@ -49,13 +51,22 @@ const MobileFirstRoadmap = () => {
           <div className="bg-black h-[10px] w-[50px] rounded-full"></div>
           <div className="bg-black h-[10px] w-[50px] rounded-full"></div>
         </div>
-        <div className="flex space-x-6 mt-2">
+        <div className="flex space-x-[500px] mt-2 mb-4 place-content-center">
           <div className="scale-x-[-1]">
-            <CarreDeNavigation />
+            <CarreDeNavigation index={index} />
           </div>
           <div className="flex justify-end">
-            <CarreDeNavigation />
+            <CarreDeNavigation index={index}  />
           </div>
+        </div>
+        <div className='bg-white h-[300px] w-[300px] mx-auto'>
+          <Image
+                  className="hidden lg:flex lg:text-center"
+                  src="/static/images/Roadmap/bg-roadmap.png"
+                  alt="logolgAndUp"
+                  width="500"
+                  height="500"
+                />
         </div>
       </div>
       <div className="bg-roadmap h-[100px] w-[100px]"></div>
@@ -68,7 +79,7 @@ export const Roadmap = () => {
     <>
       {/* min height de 1024 px petit padding de 30 */}
 
-      <div className="min-h-[900px] pt-[30px] bg-roadmap delaGothicOne">
+      <div className="min-h-[900px] pt-[30px] bg-black delaGothicOne">
         {/* titre */}
         <h1 className="text-center text-white uppercase text-[40px] pt-2 pb-2 sm:text-[40px] sm:pt-2">
           Roadmap
