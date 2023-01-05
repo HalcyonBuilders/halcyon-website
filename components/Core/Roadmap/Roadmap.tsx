@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import React, { useState } from 'react';
 
 const SaveToFullResponsive = () => {
   return (
@@ -32,79 +33,99 @@ const SaveToFullResponsive = () => {
 interface RoadmapNavigation {
   indexNavigation: number;
   direction?: 'right' | 'left';
+  addIndex:  () => void, 
+  minusIndex: () => void
 }
 
-// ecrit une fonction qui prend en parametre un index et qui retourne un div avec un index
-
 const CarreDeNavigation = (props: RoadmapNavigation) => {
+  const numberOfState = 4;
   let { indexNavigation, direction } = props;
 
-  const addIndex = () => {
-    indexNavigation = indexNavigation + 1;
-  };
-
-  const minusIndex = () => {
-    indexNavigation = indexNavigation - 1;
-  };
-
   const indexManager = () => {
-    if (direction === 'right') {
-      addIndex();
-    } else {
-      minusIndex();
+    if (direction === 'right' && indexNavigation < numberOfState) {
+      props.addIndex();
+      console.log(indexNavigation);
+    } else if (direction === 'left' && indexNavigation > 0) {
+      props.minusIndex();
+      console.log(indexNavigation);
     }
   };
 
-  if (indexNavigation === 0 && direction === 'left') {
-    return (
-      <div className="h-[12px] w-[12px] border-black border-t-2 border-r-2 border-solid transform rotate-45 opacity-25"></div>
-    );
+  const NavigationOpacityManager = () => {
+    if ((indexNavigation === 0 && direction === 'left') || (indexNavigation >= numberOfState && direction === 'right')) {
+      return  (
+        <div className="h-[15px] w-[15px] border-black border-t-[3px] border-r-[3px] border-solid transform rotate-45 opacity-25 disabled"></div>
+      );
+    } else {
+      return  (
+        <div className="h-[15px] w-[15px] border-black border-t-[3px] border-r-[3px] border-solid transform rotate-45"></div>
+      )
+    }
   }
-
+  
   return (
     <>
-      <div
-        className="h-[12px] w-[12px] border-black border-t-2 border-r-2 border-solid transform rotate-45"
-        onClick={indexManager}>
-        {indexNavigation}
+      <div onClick={indexManager}>
+        <NavigationOpacityManager />
       </div>
     </>
   );
 };
 
 const MobileFirstRoadmap = () => {
-  let indexRoadmap: RoadmapNavigation = { indexNavigation: 0 };
+  const [indexRoadmap, setCompteur] = useState(0);
+
+  const [imageCounter, setImageCounter] = useState(0);
+  const backgroundList = ['bg-roadmap-tunnel', 'bg-roadmap-man-silouette', 'bg-roadmap-hexagone-nft', 'bg-roadmap-man-silouette', 'bg-roadmap-tunnel'];
+
+  const opacityOfRoadmapProgress = (stateOfProgressToChangeOpacity: number) => {
+    if (indexRoadmap >= stateOfProgressToChangeOpacity) {
+      return 'opacity-100';
+    } else {
+      return 'opacity-20';
+    }
+  }
+
+  const addIndex = () => {
+    setCompteur(indexRoadmap + 1);
+    setImageCounter(imageCounter + 1);
+  };
+
+  const minusIndex = () => {
+    setCompteur(indexRoadmap - 1);
+    setImageCounter(imageCounter - 1);
+  };
 
   return (
     <>
-      <div className="bg-red-700 mx-auto h-[400px] w-[400px] rounded-lg md:w-[600px] pt-2">
-        <div className="flex space-x-4 place-content-center">
+      <div className={`${backgroundList[imageCounter]} brightness-[0.95] filter blur-[0.1px] bg-cover mx-auto h-[300px] w-[300px] rounded-lg md:w-[600px]`}>
+        <div className="flex space-x-4 place-content-center pt-4">
           {/* Mettre mes divs pour la roadmap */}
-          <div className="bg-black h-[10px] w-[50px] rounded-full"></div>
-          <div className="bg-black h-[10px] w-[50px] rounded-full"></div>
-          <div className="bg-black h-[10px] w-[50px] rounded-full"></div>
-          <div className="bg-black h-[10px] w-[50px] rounded-full"></div>
-          <div className="bg-black h-[10px] w-[50px] rounded-full"></div>
+          <div className={`bg-black h-[10px] w-[32px] rounded-full ${opacityOfRoadmapProgress(0)} animate-fillPointRoadmap`}></div>
+          <div className={`bg-black h-[10px] w-[32px] rounded-full ${opacityOfRoadmapProgress(1)} animate-fillPointRoadmap`}></div>
+          <div className={`bg-black h-[10px] w-[32px] rounded-full ${opacityOfRoadmapProgress(2)} animate-fillPointRoadmap`}></div>
+          <div className={`bg-black h-[10px] w-[32px] rounded-full ${opacityOfRoadmapProgress(3)} animate-fillPointRoadmap`}></div>
+          <div className={`bg-black h-[10px] w-[32px] rounded-full ${opacityOfRoadmapProgress(4)} animate-fillPointRoadmap`}></div>
         </div>
-        <div className="flex space-x-[325px] mt-2 mb-4 place-content-center">
+        <div className="flex space-x-[235px] mt-[20px] mb-4 place-content-center">
           <div className="scale-x-[-1]">
-            <CarreDeNavigation indexNavigation={indexRoadmap.indexNavigation} direction="left" />
+            <CarreDeNavigation indexNavigation={indexRoadmap} direction="left" addIndex={addIndex} minusIndex={minusIndex} />
           </div>
           <div className="flex justify-end">
-            <CarreDeNavigation indexNavigation={indexRoadmap.indexNavigation} direction="right" />
+            <CarreDeNavigation indexNavigation={indexRoadmap} direction="right" addIndex={addIndex} minusIndex={minusIndex} />
           </div>
         </div>
-        <div className="bg-white h-[300px] w-[300px] mx-auto">
-          <Image
-            className="hidden lg:flex lg:text-center"
-            src="/static/images/Roadmap/bg-roadmap.png"
-            alt="logolgAndUp"
-            width="500"
-            height="500"
-          />
+        <div className='mt-4 w-4/5 mx-auto ' style={{textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)'}}>
+          <p className='flex justify-center text-titre text-[30px]'>Q3-2022</p>
+          <p className='flex justify-center uppercase text-red-600 text-[23px] mt-[5px]'>Rebranding</p>
+          <div className='mt-[15px] text-[16px]'>
+            <li >Rebranding</li>
+            <li>Website v1;1</li>
+            <li>Patnership with Xoxno</li>
+          </div>
         </div>
+        
       </div>
-      <div className="bg-roadmap h-[100px] w-[100px]"></div>
     </>
   );
 };
@@ -114,7 +135,7 @@ export const Roadmap = () => {
     <>
       {/* min height de 1024 px petit padding de 30 */}
 
-      <div className="min-h-[900px] pt-[30px] bg-black delaGothicOne">
+      <div className="min-h-[900px] pt-[30px] bg-roadmap-bg delaGothicOne">
         {/* titre */}
         <h1 className="text-center text-white uppercase text-[40px] pt-2 pb-2 sm:text-[40px] sm:pt-2">
           Roadmap

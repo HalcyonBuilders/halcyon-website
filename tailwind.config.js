@@ -2,6 +2,12 @@
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    textColor: theme => theme('colors'),
+    // eslint-disable-next-line no-dupe-keys
+    textColor: {
+       'titre': '#0ab0d6',
+       'texte-li': '#ffffff',
+     },
     extend: {
       transitionProperty: {
         navBar: 'margin-left, margin-right, border-radius, height',
@@ -28,17 +34,26 @@ module.exports = {
           '0%': { opacity: '0' },
           '50%': { opacity: '0' },
           '95%': { opacity: '1' }
+        },
+        fillPointRoadmap: {
+          '0%': { transform: 'scaleX(0)' },
+          '100%': { transform: 'scaleX(1)' }
         }
       },
       animation: {
         slidein: 'slidein 1.2s',
         hideImage: 'hideImage 1.9s',
         hideNavBarContent: 'hideNavBarContent 1.2s',
-        hideBlueBorder: 'hideBlueBorder 0.6s'
+        hideBlueBorder: 'hideBlueBorder 0.6s',
+        fillPointRoadmap: 'fill-animation 2s linear',
       },
       backgroundImage: {
-        roadmap: 'url(/public/static/images/Roadmap/bg-roadmap.png)'
-      }
+        "roadmap-bg": 'url(/static/images/Roadmap/bg-roadmap.png)',
+        "roadmap-tunnel": 'url(/static/images/Roadmap/roadmap_tunnel_futuriste.svg)',
+        "roadmap-man-silouette" : 'url(/static/images/Roadmap/roadmap_man_silouette.svg)',
+        "roadmap-hexagone-nft" : 'url(/static/images/Roadmap/roadmap_hexagone_nft.svg)',
+        "test": 'url(/static/images/Roadmap/roadmap_tunnel_futuriste.svg), url(/static/images/Roadmap/roadmap_man_silouette.svg), url(/static/images/Roadmap/roadmap_hexagone_nft.svg)'
+      },
     }
   },
   plugins: []
