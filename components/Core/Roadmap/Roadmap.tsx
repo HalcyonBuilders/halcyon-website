@@ -57,7 +57,7 @@ const CarreDeNavigation = (props: RoadmapNavigation) => {
       (indexNavigation >= numberOfState && direction === 'right')
     ) {
       return (
-        <div className="h-[15px] w-[15px] border-black border-t-[3px] border-r-[3px] border-solid transform rotate-45 opacity-25 disabled"></div>
+        <div className="h-[15px] w-[15px] border-black border-t-[3px] border-r-[3px] border-solid transform rotate-45 disabled"></div>
       );
     } else {
       return (
@@ -114,29 +114,6 @@ const MobileFirstRoadmap = () => {
             className={`h-full w-${
               indexRoadmap + 1
             }/5 bg-gradient-to-r from-white via-[#cfcff2] to-[#00d4ff] rounded-full transition-all duration-300 ease-in-out`}></div>
-        </div>
-        <div className="flex space-x-4 place-content-center pt-4 animate-fillPointRoadmap">
-          {/* Mettre mes divs pour la roadmap */}
-          <div
-            className={`bg-black h-[10px] w-[32px] rounded-full ${opacityOfRoadmapProgress(
-              0
-            )} `}></div>
-          <div
-            className={`bg-black h-[10px] w-[32px] rounded-full ${opacityOfRoadmapProgress(
-              1
-            )} `}></div>
-          <div
-            className={`bg-black h-[10px] w-[32px] rounded-full ${opacityOfRoadmapProgress(
-              2
-            )} `}></div>
-          <div
-            className={`bg-black h-[10px] w-[32px] rounded-full ${opacityOfRoadmapProgress(
-              3
-            )} `}></div>
-          <div
-            className={`bg-black h-[10px] w-[32px] rounded-full ${opacityOfRoadmapProgress(
-              4
-            )} `}></div>
         </div>
         <div className="flex space-x-[235px] mt-[20px] mb-4 place-content-center">
           <div className="scale-x-[-1]">
