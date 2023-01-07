@@ -106,7 +106,8 @@ const MobileFirstRoadmap = () => {
   };
 
   const RoadmapProgress = () => {
-    return `w-${indexRoadmap}/5`;
+    console.log(`translate-x-[-${100 - ((indexRoadmap + 1) / 5) * 100}%]`);
+    return `translate-x-[-${100 - ((indexRoadmap + 1) / 5) * 100}%]`;
   };
 
   const displayLiList = () => {
@@ -119,12 +120,12 @@ const MobileFirstRoadmap = () => {
 
   return (
     <>
-      <li>{indexRoadmap}</li>
       <div
         className={`${displayBackground()} brightness-[0.95] filter blur-[0.1px] bg-cover mx-auto h-[325px] w-[400px] rounded-lg md:w-[600px]`}>
-        <div className="bg-white h-1 rounded-full">
+        <div className="relative bg-[#ececec] h-1 rounded-full overflow-hidden">
           <div
-            className={`h-full w-full translate-x-full bg-gradient-to-r from-white via-[#cfcff2] to-[#00d4ff] rounded-full transition-all duration-500 ease-out`}></div>
+            className={`h-full w-full bg-gradient-to-r from-[#b8a7fc] via-[#48b1c5] to-[#008eab] transition-all duration-500 ease-out inset-0 absolute rounded-full ${RoadmapProgress()}
+            `}></div>
         </div>
 
         <div className="flex space-x-[235px] mt-[20px] mb-4 place-content-center">
