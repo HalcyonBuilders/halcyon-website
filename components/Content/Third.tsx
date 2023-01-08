@@ -152,12 +152,12 @@ export const Third = () => {
 
   return (
     <>
-      <div className="min-h-[900px] pt-[30px] bg-roadmap-bg delaGothicOne">
+      <div className="min-h-[900px] pt-[30px] delaGothicOne">
         <div className="h-[325px] w-[300px] md:w-[600px] brightness-[0.90] rounded-lg mx-auto relative overflow-hidden z-0">
           <div
             className={`h-full w-[500%] absolute tansform ${backgroundSlide()} transition-transform duration-700 ease`}>
             <div
-              className={`bg-[url('/static/images/HeroLab.png')] h-[325px] w-[300px] 
+              className={`bg-[url('/static/images/Roadmap/roadmap_hexagone_nft.svg')] h-[325px] w-[300px] 
               rounded-lg md:w-[600px] bg-cover absolute
               transform translate-x-[0%]
               `}></div>
