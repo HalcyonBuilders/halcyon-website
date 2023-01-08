@@ -61,65 +61,44 @@ const listOfRoadmapElm: ElmOfRoadmapInterface[] = [
   }
 ];
 
-const MobileFirstRoadmap = () => {
-  const [indexRoadmap, setCompteur] = useState(0);
-  const [listValueBg, setListValue] = useState([0, 100, 200, 300, 400]);
-
-  const addIndex = () => {
-    setCompteur(indexRoadmap + 1);
-  };
-
-  const minusIndex = () => {
-    setCompteur(indexRoadmap - 1);
-  };
-
-  const nextBg = () => {
-    setListValue(listValueBg.map((item) => item + 100));
-  };
-  const minusBg = () => {
-    setListValue(listValueBg.map((item) => item - 100));
-  };
-
-  const displayBackground = () => {
-    return (
-      <>
-        <li>{listValueBg.map((elm) => elm + ',')}</li>
-        <div
-          className={`${listOfRoadmapElm[0].backgroundImageDef} h-[325px] w-[300px] 
-            rounded-lg md:w-[600px] bg-cover absolute translate-x-[${listValueBg[0]}%] transition-all duration-500 linear`}></div>
-        <div
-          className={`${listOfRoadmapElm[1].backgroundImageDef} h-[325px] w-[300px] 
-      rounded-lg md:w-[600px] bg-cover absolute translate-x-[${listValueBg[1]}%] transition-all duration-500 linear`}></div>
-        <div
-          className={`${listOfRoadmapElm[2].backgroundImageDef} h-[325px] w-[300px] 
-      rounded-lg md:w-[600px] bg-cover absolute translate-x-[${listValueBg[2]}%] transition-all duration-500 linear`}></div>
-        <div
-          className={`${listOfRoadmapElm[3].backgroundImageDef} h-[325px] w-[300px] 
-      rounded-lg md:w-[600px] bg-cover absolute translate-x-[${listValueBg[3]}%] transition-all duration-500 linear`}></div>
-        <div
-          className={`${listOfRoadmapElm[4].backgroundImageDef} h-[325px] w-[300px] 
-      rounded-lg md:w-[600px] bg-cover absolute translate-x-[${listValueBg[4]}%] transition-all duration-500 linear`}></div>
-      </>
-    );
-  };
-
-  return (
-    <>
-      <div className="h-[325px] w-[300px] md:w-[600px] brightness-[0.85] absolute">
-        {displayBackground()}
-      </div>
-    </>
-  );
-};
-
 export const Roadmap = () => {
+  const [indexRoadmap, setCompteur] = useState(0);
+
   return (
     <>
       <div className="min-h-[900px] pt-[30px] bg-roadmap-bg delaGothicOne">
-        {/* titre */}
         <h1 className="text-center text-white uppercase text-[40px] pt-2 pb-2 sm:text-[40px] sm:pt-2">
           Roadmap
         </h1>
+
+        <div className="h-[325px] w-[300px] md:w-[600px] rounded-lg mx-auto relative overflow-hidden">
+          <div className={`transform translate-x-[-${0}00%] transition-all duration-700 linear`}>
+            <div
+              className={`${listOfRoadmapElm[0].backgroundImageDef} h-[325px] w-[300px] 
+              rounded-lg md:w-[600px] bg-cover absolute
+              transform translate-x-[0%]
+              `}></div>
+            <div
+              className={`${listOfRoadmapElm[1].backgroundImageDef} h-[325px] w-[300px] 
+              rounded-lg md:w-[600px] bg-cover absolute
+              transform translate-x-[100%]`}></div>
+            <div
+              className={`${listOfRoadmapElm[2].backgroundImageDef} h-[325px] w-[300px] 
+              rounded-lg md:w-[600px] bg-cover absolute 
+              transition-all duration-500 linear
+              transform translate-x-[200%]`}></div>
+            <div
+              className={`${listOfRoadmapElm[3].backgroundImageDef} h-[325px] w-[300px] 
+              rounded-lg md:w-[600px] bg-cover absolute 
+              transition-all duration-500 linear
+              transform translate-x-[300%]`}></div>
+            <div
+              className={`${listOfRoadmapElm[4].backgroundImageDef} h-[325px] w-[300px] 
+              rounded-lg md:w-[600px] bg-cover absolute 
+              transition-all duration-500 linear
+              transform translate-x-[400%]`}></div>
+          </div>
+        </div>
       </div>
     </>
   );
