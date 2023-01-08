@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 
 interface RoadmapNavigation {
   indexNavigation: number;
+  listBg: number[];
   direction?: 'right' | 'left';
   addIndex: () => void;
   minusIndex: () => void;
+  nextBg: () => void;
+  minusBg: () => void;
 }
 
 interface ElmOfRoadmapInterface {
@@ -12,7 +15,7 @@ interface ElmOfRoadmapInterface {
   title: string;
   subTitle: string;
   liList: string[];
-  percent: number;
+  locked: boolean;
 }
 
 const listOfRoadmapElm: ElmOfRoadmapInterface[] = [
@@ -21,7 +24,7 @@ const listOfRoadmapElm: ElmOfRoadmapInterface[] = [
     title: 'Q3-2022',
     subTitle: 'REBRANDING',
     liList: ['Rebranding', 'Website v1;1', 'Patnership with Xoxno'],
-    percent: 20
+    locked: false
   },
   {
     backgroundImageDef: 'bg-roadmap-man-silouette',
@@ -33,28 +36,28 @@ const listOfRoadmapElm: ElmOfRoadmapInterface[] = [
       'Launch of our first product',
       'Beta Testers Campaign'
     ],
-    percent: 40
+    locked: false
   },
   {
     backgroundImageDef: 'bg-roadmap-hexagone-nft',
     title: 'Q1-2023',
     subTitle: 'NFTs MINT 1ST BATCH',
     liList: ['Whitepaper', 'Launch of our second product', 'Nfts mint 2nd batch'],
-    percent: 60
+    locked: false
   },
   {
     backgroundImageDef: 'bg-roadmap-man-silouette',
     title: 'Q2-2023',
     subTitle: 'NFTs MINT 3RD BATCH',
     liList: ['Launch of our third product', 'Nfts mint 4e batch'],
-    percent: 80
+    locked: true
   },
   {
     backgroundImageDef: 'bg-roadmap-hexagone-nft',
     title: 'Q3-2023',
     subTitle: 'Launch of create your raffle',
     liList: ['Nfts mint 5e batch', 'Launch of p2p swap', 'Nfts mint 6e batch', 'Job launch'],
-    percent: 100
+    locked: true
   }
 ];
 
@@ -65,8 +68,10 @@ const CarreDeNavigation = (props: RoadmapNavigation) => {
   const indexManager = () => {
     if (direction === 'left' && indexNavigation > 0) {
       props.minusIndex();
+      props.nextBg();
     } else {
       props.addIndex();
+      props.minusBg();
     }
   };
 
@@ -96,6 +101,7 @@ const CarreDeNavigation = (props: RoadmapNavigation) => {
 
 const MobileFirstRoadmap = () => {
   const [indexRoadmap, setCompteur] = useState(0);
+  const [listValueBg, setListValue] = useState([0, 100, 200, 300, 400]);
 
   const addIndex = () => {
     setCompteur(indexRoadmap + 1);
@@ -105,21 +111,14 @@ const MobileFirstRoadmap = () => {
     setCompteur(indexRoadmap - 1);
   };
 
+  const nextBg = () => {
+    setListValue(listValueBg.map((item) => item + 100));
+  };
+  const minusBg = () => {
+    setListValue(listValueBg.map((item) => item - 100));
+  };
+
   const RoadmapProgress = () => {
-    switch (indexRoadmap) {
-      case 0:
-        return `translate-x-[-80%]`;
-      case 1:
-        return `translate-x-[-60%]`;
-      case 2:
-        return `translate-x-[-40%]`;
-      case 3:
-        return `translate-x-[-20%]`;
-      case 4:
-        return `translate-x-[-0%]`;
-      default:
-        break;
-    }
     return `translate-x-[-${100 - ((indexRoadmap + 1) / 5) * 100}%]`;
   };
 
@@ -128,46 +127,93 @@ const MobileFirstRoadmap = () => {
   };
 
   const displayBackground = () => {
-    return listOfRoadmapElm[indexRoadmap].backgroundImageDef;
+    return (
+      <>
+        <div
+          className={`${listOfRoadmapElm[0].backgroundImageDef} h-[325px] w-[300px] 
+    rounded-lg md:w-[600px] bg-cover absolute translate-x-[${listValueBg[0]}%] transition-all duration-500 linear`}></div>
+        <div
+          className={`${listOfRoadmapElm[1].backgroundImageDef} h-[325px] w-[300px] 
+      rounded-lg md:w-[600px] bg-cover absolute translate-x-[${listValueBg[1]}%] transition-all duration-500 linear`}></div>
+        <div
+          className={`${listOfRoadmapElm[2].backgroundImageDef} h-[325px] w-[300px] 
+      rounded-lg md:w-[600px] bg-cover absolute translate-x-[${listValueBg[2]}%] transition-all duration-500 linear`}></div>
+        <div
+          className={`${listOfRoadmapElm[3].backgroundImageDef} h-[325px] w-[300px] 
+      rounded-lg md:w-[600px] bg-cover absolute translate-x-[${listValueBg[3]}%] transition-all duration-500 linear`}></div>
+        <div
+          className={`${listOfRoadmapElm[4].backgroundImageDef} h-[325px] w-[300px] 
+      rounded-lg md:w-[600px] bg-cover absolute translate-x-[${listValueBg[4]}%] transition-all duration-500 linear`}></div>
+      </>
+    );
+  };
+
+  const rollTitle = () => {
+    return (
+      <>
+        <div className="absolute transition-transform duration-500 ease-in-out transform: rotateX(360deg)">
+          {listOfRoadmapElm[0].title}
+        </div>
+        <div className="absolute transition-transform duration-500 ease-in-out transform: rotateX(360deg)">
+          {listOfRoadmapElm[1].title}
+        </div>
+        <div className="absolute">{listOfRoadmapElm[2].title}</div>
+        <div className="absolute">{listOfRoadmapElm[3].title}</div>
+        <div className="absolute">{listOfRoadmapElm[4].title}</div>
+      </>
+    );
   };
 
   return (
     <>
-      <div className={`${displayBackground()} brightness-[0.95] filter blur-[0.1px] bg-cover mx-auto h-[325px] w-[300px] rounded-lg md:w-[600px] transition duration-600  ease` }>
-        <div className="relative bg-[#ececec] h-1 rounded-full overflow-hidden">
-          <div className={`h-full w-full bg-gradient-to-r from-[#b8a7fc] via-[#48b1c5] to-[#008eab] transition-all duration-500 ease-out inset-0 absolute rounded-full ${RoadmapProgress()}`}>
+      <div className="h-[325px] w-[300px] md:w-[600px] brightness-[0.85] absolute overflow-hidden">
+        {displayBackground()}
+      </div>
 
-          </div>
-        </div>
+      {/* <div
+          className={`bg-roadmap-man-silouette brightness-[0.90] h-[325px] w-[300px] 
+        rounded-lg md:w-[600px] bg-cover transition duration-600 ease-out absolute transition-all duration-500 ease`}></div> */}
 
-        <div className="flex space-x-[235px] mt-[20px] mb-4 place-content-center">
-          <div className="scale-x-[-1]">
-            <CarreDeNavigation
-              indexNavigation={indexRoadmap}
-              direction="left"
-              addIndex={addIndex}
-              minusIndex={minusIndex}
-            />
-          </div>
-          <div className="flex justify-end">
-            <CarreDeNavigation
-              indexNavigation={indexRoadmap}
-              direction="right"
-              addIndex={addIndex}
-              minusIndex={minusIndex}
-            />
-          </div>
-        </div>
+      <div className="relative bg-[#ececec] h-1 rounded-full overflow-hidden">
         <div
-          className="mt-4 w-4/5 mx-auto "
-          style={{ textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)' }}>
-          <p className="flex justify-center text-[#0ab0d6] text-[30px] ">
-            {listOfRoadmapElm[indexRoadmap].title}
+          className={`h-full w-full bg-gradient-to-r from-[#b8a7fc] via-[#48b1c5] to-[#008eab] transition-all duration-500 ease-out inset-0 absolute rounded-full ${RoadmapProgress()}`}></div>
+      </div>
+
+      <div className="flex space-x-[235px] mt-[20px] mb-4 place-content-center">
+        <div className="scale-x-[-1]">
+          <CarreDeNavigation
+            indexNavigation={indexRoadmap}
+            listBg={listValueBg}
+            direction="left"
+            addIndex={addIndex}
+            minusIndex={minusIndex}
+            minusBg={minusBg}
+            nextBg={nextBg}
+          />
+        </div>
+        <div className="flex justify-end">
+          <CarreDeNavigation
+            indexNavigation={indexRoadmap}
+            listBg={listValueBg}
+            direction="right"
+            addIndex={addIndex}
+            minusIndex={minusIndex}
+            minusBg={minusBg}
+            nextBg={nextBg}
+          />
+        </div>
+      </div>
+      <div
+        className="mt-4 w-4/5 mx-auto overflow-hidden z-10 relative"
+        style={{ textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)' }}>
+        <div className="">
+          <p className="flex justify-center h-[40px] text-[#0ab0d6] text-[30px] ">
+            <div className="absolute">{listOfRoadmapElm[0].title}</div>
+            <div className="absolute">{listOfRoadmapElm[1].title}</div>
           </p>
-          <p className="flex justify-center uppercase text-white text-[23px] mt-[5px] translate-y-10">
+          <p className="flex justify-center uppercase text-white text-[23px] mt-[5px]">
             {listOfRoadmapElm[indexRoadmap].subTitle}
           </p>
-
           <div className="mt-[15px] text-[16px] text-white">{displayLiList()}</div>
         </div>
       </div>
@@ -185,7 +231,9 @@ export const Roadmap = () => {
         <h1 className="text-center text-white uppercase text-[40px] pt-2 pb-2 sm:text-[40px] sm:pt-2">
           Roadmap
         </h1>
-        <MobileFirstRoadmap />
+        <div className="h-[325px] w-[300px] rounded-lg md:w-[600px] mx-auto">
+          <MobileFirstRoadmap />
+        </div>
       </div>
       {/* Faire une div pour le content avec les textes   */}
       {/* 1 div avec la barre de progression et dedans les points taille env 26px  */}

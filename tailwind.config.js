@@ -33,6 +33,18 @@ module.exports = {
           '0%': { opacity: 1 },
           '50%': { opacity: 0 },
           '100%': { opacity: 1 }
+        },
+        test: {
+          '0%': {
+            transform: 'translateX(0)'
+          },
+          '50%': {
+            opacity: '0,50'
+          },
+          '100%': {
+            transform: 'translateX(-100%)',
+            opacity: '0'
+          }
         }
       },
       animation: {
@@ -41,14 +53,15 @@ module.exports = {
         hideNavBarContent: 'hideNavBarContent 1.2s',
         hideBlueBorder: 'hideBlueBorder 0.6s',
         fadeInOut: 'fadeInOut 1.2s',
+        test: 'test 3s'
       },
       backgroundImage: {
-        "roadmap-bg": 'url(/static/images/Roadmap/bg-roadmap.png)',
-        "roadmap-tunnel": 'url(/static/images/Roadmap/roadmap_tunnel_futuriste.svg)',
-        "roadmap-man-silouette" : 'url(/static/images/Roadmap/roadmap_man_silouette.svg)',
-        "roadmap-hexagone-nft" : 'url(/static/images/Roadmap/roadmap_hexagone_nft.svg)',
-        "test": 'url(/static/images/Roadmap/roadmap_tunnel_futuriste.svg), url(/static/images/Roadmap/roadmap_man_silouette.svg), url(/static/images/Roadmap/roadmap_hexagone_nft.svg)'
-      },
+        'roadmap-bg': 'url(/static/images/Roadmap/bg-roadmap.png)',
+        'roadmap-tunnel': 'url(/static/images/Roadmap/roadmap_tunnel_futuriste.svg)',
+        'roadmap-man-silouette': 'url(/static/images/Roadmap/roadmap_man_silouette.svg)',
+        'roadmap-hexagone-nft': 'url(/static/images/Roadmap/roadmap_hexagone_nft.svg)',
+        test: 'url(/static/images/Roadmap/roadmap_tunnel_futuriste.svg), url(/static/images/Roadmap/roadmap_man_silouette.svg), url(/static/images/Roadmap/roadmap_hexagone_nft.svg)'
+      }
     }
   },
   plugins: []
