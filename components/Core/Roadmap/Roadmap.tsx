@@ -106,7 +106,20 @@ const MobileFirstRoadmap = () => {
   };
 
   const RoadmapProgress = () => {
-    console.log(`translate-x-[-${100 - ((indexRoadmap + 1) / 5) * 100}%]`);
+    switch (indexRoadmap) {
+      case 0:
+        return `translate-x-[-80%]`;
+      case 1:
+        return `translate-x-[-60%]`;
+      case 2:
+        return `translate-x-[-40%]`;
+      case 3:
+        return `translate-x-[-20%]`;
+      case 4:
+        return `translate-x-[-0%]`;
+      default:
+        break;
+    }
     return `translate-x-[-${100 - ((indexRoadmap + 1) / 5) * 100}%]`;
   };
 
@@ -120,12 +133,11 @@ const MobileFirstRoadmap = () => {
 
   return (
     <>
-      <div
-        className={`${displayBackground()} brightness-[0.95] filter blur-[0.1px] bg-cover mx-auto h-[325px] w-[400px] rounded-lg md:w-[600px]`}>
+      <div className={`${displayBackground()} brightness-[0.95] filter blur-[0.1px] bg-cover mx-auto h-[325px] w-[300px] rounded-lg md:w-[600px] transition duration-600  ease` }>
         <div className="relative bg-[#ececec] h-1 rounded-full overflow-hidden">
-          <div
-            className={`h-full w-full bg-gradient-to-r from-[#b8a7fc] via-[#48b1c5] to-[#008eab] transition-all duration-500 ease-out inset-0 absolute rounded-full ${RoadmapProgress()}
-            `}></div>
+          <div className={`h-full w-full bg-gradient-to-r from-[#b8a7fc] via-[#48b1c5] to-[#008eab] transition-all duration-500 ease-out inset-0 absolute rounded-full ${RoadmapProgress()}`}>
+
+          </div>
         </div>
 
         <div className="flex space-x-[235px] mt-[20px] mb-4 place-content-center">
@@ -149,14 +161,14 @@ const MobileFirstRoadmap = () => {
         <div
           className="mt-4 w-4/5 mx-auto "
           style={{ textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)' }}>
-          <p className="flex justify-center text-titre text-[30px]">
+          <p className="flex justify-center text-[#0ab0d6] text-[30px] ">
             {listOfRoadmapElm[indexRoadmap].title}
           </p>
-          <p className="flex justify-center uppercase text-red-600 text-[23px] mt-[5px]">
+          <p className="flex justify-center uppercase text-white text-[23px] mt-[5px] translate-y-10">
             {listOfRoadmapElm[indexRoadmap].subTitle}
           </p>
 
-          <div className="mt-[15px] text-[16px]">{displayLiList()}</div>
+          <div className="mt-[15px] text-[16px] text-white">{displayLiList()}</div>
         </div>
       </div>
     </>
