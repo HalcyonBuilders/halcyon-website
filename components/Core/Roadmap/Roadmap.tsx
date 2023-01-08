@@ -76,11 +76,13 @@ const CarreDeNavigation = (props: RoadmapNavigation) => {
       (indexNavigation >= numberOfState && direction === 'right')
     ) {
       return (
-        <div className="h-[15px] w-[15px] border-white border-t-[3px] border-r-[3px] border-solid transform rotate-45 opacity-25 disabled"></div>
+        <div className="h-[35px] w-[35px]">
+          <div className="h-[15px] w-[15px] border-white border-t-[3px] border-r-[3px] border-solid transform rotate-45 opacity-25 disabled"></div>
+        </div>
       );
     } else {
       return (
-        <div onClick={indexManager}>
+        <div className="h-[35px] w-[35px]" onClick={indexManager}>
           <div className="h-[15px] w-[15px] border-white border-t-[3px] border-r-[3px] border-solid transform rotate-45"></div>
         </div>
       );
@@ -104,8 +106,48 @@ export const Roadmap = () => {
     setCompteur(indexRoadmap - 1);
   };
 
-  const returnRightTranslate = () => {
-    return `transform translate-x-[-${indexRoadmap}%]`;
+  const backgroundSlide = () => {
+    switch (indexRoadmap) {
+      case 0:
+        return `translate-x-[-0%]`;
+      case 1:
+        return `translate-x-[-20%]`;
+      case 2:
+        return `translate-x-[-40%]`;
+      case 3:
+        return `translate-x-[-60%]`;
+      case 4:
+        return `translate-x-[-80%]`;
+      default:
+        break;
+    }
+  };
+
+  const roadmapSlide = () => {
+    switch (indexRoadmap) {
+      case 0:
+        return `translate-x-[-80%]`;
+      case 1:
+        return `translate-x-[-60%]`;
+      case 2:
+        return `translate-x-[-40%]`;
+      case 3:
+        return `translate-x-[-20%]`;
+      case 4:
+        return `translate-x-[-0%]`;
+      default:
+        break;
+    }
+  };
+
+  const displayLiList = () => {
+    return (
+      <ul className="list-none">
+        {listOfRoadmapElm[indexRoadmap].liList.map((itemSet) => (
+          <li key={itemSet}>{itemSet}</li>
+        ))}
+      </ul>
+    );
   };
 
   return (
@@ -115,8 +157,9 @@ export const Roadmap = () => {
           Roadmap
         </h1>
 
-        <div className="h-[325px] w-[300px] md:w-[600px] rounded-lg mx-auto relative ">
-          <div className={`${returnRightTranslate()} transform transition-all duration-700 linear`}>
+        <div className="h-[325px] w-[300px] md:w-[600px] brightness-[0.90] rounded-lg mx-auto relative overflow-hidden z-0">
+          <div
+            className={`h-full w-[500%] absolute tansform ${backgroundSlide()} transition-transform duration-700 ease`}>
             <div
               className={`${listOfRoadmapElm[0].backgroundImageDef} h-[325px] w-[300px] 
               rounded-lg md:w-[600px] bg-cover absolute
@@ -145,10 +188,10 @@ export const Roadmap = () => {
           <div className="relative bg-[#ececec] h-1 rounded-full">
             <div
               className={`h-full w-full bg-gradient-to-r from-[#b8a7fc] via-[#48b1c5] to-[#008eab] 
-              transition-all duration-500 ease-out inset-0 absolute rounded-full translate-x-[-100%]`}></div>
+              inset-0 absolute rounded-full ${roadmapSlide()} transition-transform duration-700 ease-out`}></div>
           </div>
           <div className="">
-            <div className="flex space-x-[235px] mb-4 mt-[20px] place-content-center">
+            <div className="flex space-x-[235px] mt-[20px] place-content-center">
               <div className="scale-x-[-1]">
                 <CarreDeNavigation
                   indexNavigation={indexRoadmap}
@@ -166,6 +209,28 @@ export const Roadmap = () => {
                 />
               </div>
             </div>
+            <div
+              className="w-4/5 mx-auto relative"
+              style={{ textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)' }}>
+              <div className="flex justify-center text-[#0ab0d6] text-[30px] ">
+                {listOfRoadmapElm[indexRoadmap].title}
+              </div>
+              <div className="flex justify-center uppercase text-white text-[23px] mt-[5px] ">
+                {listOfRoadmapElm[indexRoadmap].subTitle}
+              </div>
+              <div className="mt-[15px] text-[16px] text-white">{displayLiList()}</div>
+            </div>
+          </div>
+
+          <div
+            className="mt-4 w-4/5 mx-auto z-10"
+            style={{ textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)' }}>
+            {listOfRoadmapElm[indexRoadmap].title}
+          </div>
+
+          <div className="mt-[15px] text-[16px] text-white">{displayLiList()}</div>
+          <div className="mt-[15px] text-[16px] text-white absolute z-20">
+            {listOfRoadmapElm[indexRoadmap].liList[0]}
           </div>
         </div>
       </div>
