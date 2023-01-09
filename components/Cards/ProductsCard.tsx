@@ -6,7 +6,7 @@ interface Props {
   text?: ReactNode;
   imageClass?: ReactNode;
   buttonText?: ReactNode;
-  buttonHref?: ReactNode;
+  buttonHref?: string | undefined;
   backGroundImageClass?: ReactNode;
 }
 export const ProductsCard = ({
@@ -73,8 +73,7 @@ export const ProductsCard = ({
         ref={element}
         className={hoverClassMainDiv()}
         onMouseEnter={toggleClassTrue}
-        onMouseLeave={toggleClassFalse}
-      >
+        onMouseLeave={toggleClassFalse}>
         {/* @ts-ignore */}
         <div className={backGroundImageClass}></div>
         <div className={hoverClassBlueDiv()}></div>
@@ -82,12 +81,7 @@ export const ProductsCard = ({
           <div className="font-bold text-xl textBoxShadow">{title}</div>
         </div>
         <div className={hoverClassArrow()}>
-          <Image
-            src="/static/svg/chevron-down.svg"
-            alt="logoDownlg"
-            width="20"
-            height="20"
-          />
+          <Image src="/static/svg/chevron-down.svg" alt="logoDownlg" width="20" height="20" />
         </div>
         <div className={hoverClassText()}>
           <div className="font-semibold text-md text-center px-4">{text}</div>
@@ -95,7 +89,11 @@ export const ProductsCard = ({
         <div className={hoverClassButton()}>
           <div className="xl:w-[10vw] lg:w-[20vw] h-[5vh] bg-white rounded-lg flex justify-center items-center cursor-pointer hover:border-2 hover:border-cyan-500">
             {/* @ts-ignore */}
-            <a target="_blank" href={buttonHref} className="absolute w-[10vw] h-[5vh]"></a>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={buttonHref}
+              className="absolute w-[10vw] h-[5vh]"></a>
             <div className="font-semibold text-cyan-500 text-lg text-center px-4">{buttonText}</div>
           </div>
         </div>
