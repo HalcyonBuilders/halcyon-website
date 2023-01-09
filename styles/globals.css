@@ -5,9 +5,69 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
+
+@font-face {
+  font-family: saira;
+  src: url(../public/static/fonts/Saira-VariableFont_wdth.ttf);
+}
+
+@font-face {
+  font-family: delaGothic;
+  src: url(../public/static/fonts/DelaGothicOne-Regular.ttf);
+}
+
+@font-face {
+  font-family: copdro;
+  src: url(../public/static/fonts/Copdro.otf);
+}
+
+.core {
+  font-family: delaGothic;
+}
+
+.Navbar {
+  font-family: saira;
+}
+
+.footerFont {
+  font-family: saira;
+}
+
+.saira {
+  font-family: saira;
+}
+
+.copdro {
+  font-family: copdro;
+}
+
+.silver {
+  color: #C0C0C0;
+}
+
+.headerGradient {
+  background: linear-gradient(to bottom, transparent 0 99%, black 99.6% 100%);
+}
+
+.separatorGradient {
+  background: linear-gradient(to top, black 0 98%, black 99% 100%);
+}
+
+.spaceShipGradient {
+  background: linear-gradient(to bottom, transparent 0 50%, red 99% 100%);
+}
+
+.textBoxShadow {
+  text-shadow:
+   -1px -1px 0 #06b6d4,  
+    1px -1px 0 #06b6d4,
+    -1px 1px 0 #06b6d4,
+     1px 1px 0 #06b6d4;
+}
+
 
 a {
   color: inherit;
@@ -24,6 +84,8 @@ a {
   }
   body {
     color: white;
-    background: rgba(0, 0, 0, 0.69);
+    background: linear-gradient(to bottom, black 0 96.5%, #06b6d4 96.5% 100%);
   }
 }
+
+

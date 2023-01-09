@@ -1,50 +1,76 @@
-import Image from "next/image";
+import Image from 'next/image';
+import useDeviceSize from '../../hooks/windowHook';
+import React, { useEffect, useState, useRef } from 'react';
 export const Header = () => {
+
+  const [windowWidth, windowHeight] = useDeviceSize();
+  const opacityBlurRef = useRef(null);
+  const opacityArrow = useRef(null);
+  const blurBackground = useRef(null);
+
+  const scrollToHeroSectionText = () => {
+    window.scrollTo({
+      top: windowHeight,
+      behavior: 'smooth',
+    });
+  }
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      // @ts-ignore
+      opacityBlurRef.current.style.opacity = +scrollTop / 1000;
+      // @ts-ignore
+      opacityArrow.current.style.opacity = 1 - scrollTop / 330;
+      // @ts-ignore
+      blurBackground.current.style.filter = `blur(${scrollTop / 70}px)`;
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <section className="relative bg-transparent bg-cover bg-center bg-no-repeat">
-      <div className="absolute inset-0 bg-transparent sm:bg-transparent sm:bg-gradient-to-b sm:from-transparent sm:to-transparent">
-        <Image
-          priority
-          className="-z-50"
-          src="/static/images/heroImage.png"
-          alt="hero image example"
-          fill
-          sizes="100vw"
-          style={{
-            objectFit: "cover",
-            objectPosition: "center"
-          }} />
-      </div>
-
-      <div className="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 sm:flex sm:justify-center lg:h-screen lg:items-center xl:items-end lg:px-8">
-        <div className="max-w-xl text-center sm:text-center">
-          <h1 className="text-3xl font-extrabold sm:text-5xl">
-            Here Your Adventure
-            <strong className="block font-extrabold text-cyan-500">Will Begin.</strong>
-          </h1>
-
-          <p className="mt-4 max-w-lg sm:text-xl sm:leading-relaxed">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt illo tenetur fuga
-            ducimus numquam ea!
-          </p>
-
-          <div className="mt-8 flex flex-wrap justify-center gap-4 text-center">
-            <a
-              href="#"
-              className="block w-full rounded bg-cyan-700 px-12 py-3 text-sm font-medium text-white shadow hover:bg-cyan-900 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto"
-            >
-              Get Started
-            </a>
-
-            <a
-              href="#"
-              className="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-cyan-600 shadow hover:text-cyan-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto"
-            >
-              Learn More
-            </a>
+    <>
+      <div onClick={scrollToHeroSectionText}>
+        <div className="absolute top-0 h-screen w-full z-30 flex justify-center">
+          <div ref={opacityArrow} className="flex items-end py-5">
+            <Image src="/static/svg/double-arrow.svg" className='animate-bounce hover:w-[45px]' alt="doubleArrow" width="40" height="100" />
           </div>
         </div>
       </div>
-    </section>
+      <div className="relative h-[200vh] w-full">
+        <div
+          ref={opacityBlurRef}
+          className="z-10 absolute top-0 w-full h-[200vh] opacity-0"
+          style={{
+            backgroundColor: 'hsla(0, 100%, 0%, 0.25)'
+          }}
+        ></div>
+        <div
+          ref={blurBackground}
+          className="z-0 h-[100vh] w-full sticky top-0 bg-no-repeat bg-cover bg-[url('/static/images/heroImage.png')]"
+        >
+        </div>
+        <div className="heroHeader sticky top-0 z-20 w-full h-[100vh] flex justify-center items-center">
+          <div className="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center">
+            <div className="mx-auto max-w-3xl text-center">
+              <h1 className="saira text-lg font-bold sm:text-2xl">
+                  Pushing The Boundaries Of Innovation
+                <strong className="text-4xl sm:text-5xl font-extrabold mt-4 block text-cyan-500">
+                  Web3 Experiments Studios
+                </strong>
+              </h1>
+
+              <p className="saira mt-4 sm:text-lg sm:leading-relaxed">
+                Halcyon is a multi-chain creation studio that specializes in building innovative Web3-based products.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
