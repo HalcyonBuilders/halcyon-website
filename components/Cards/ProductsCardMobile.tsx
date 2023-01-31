@@ -6,7 +6,7 @@ interface Props {
   text?: ReactNode;
   imageClass?: ReactNode;
   buttonText?: ReactNode;
-  buttonHref?: ReactNode;
+  buttonHref?: string | undefined;
   backGroundImageClass?: ReactNode;
 }
 export const ProductsCardMobile = ({
