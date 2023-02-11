@@ -100,27 +100,24 @@ const Carousel: React.FC<CarouselProps> = ({ cellCount }) => {
 
   function rotateCarousel() {
     const angle = selectedIndex / cellCount * -360;
-    return (
+    return ( 
       <div className="scene">
             <div className="carousel" style={{
           transform: `translateZ(-288px) rotateY(${angle}deg)`
         }}>
-              <div className="carousel__cell">1</div>
-              <div className="carousel__cell">2</div>
-              <div className="carousel__cell">3</div>
-              <div className="carousel__cell">4</div>
-              <div className="carousel__cell">5</div>
-              <div className="carousel__cell">6</div>
-              <div className="carousel__cell">7</div>
-              <div className="carousel__cell">8</div>
-              <div className="carousel__cell">9</div>
+              <div className={`${listOfRoadmapElm[0].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>1
+              </div>
+              <div className={`${listOfRoadmapElm[1].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>2</div>
+              <div className={`${listOfRoadmapElm[2].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>3</div>
+              <div className={`${listOfRoadmapElm[3].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>4</div>
+              <div className={`${listOfRoadmapElm[4].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>5</div>
             </div>
           </div>
-    );
+    )
   }
 
   return (
-    <div>
+    <div className='relative'>
       {rotateCarousel()}
       <div className='flex justify-center text-white'>
         <button className="my-2 mx-2 w-20 bg-grey" onClick={() => setSelectedIndex(selectedIndex - 1)}>
@@ -129,7 +126,20 @@ const Carousel: React.FC<CarouselProps> = ({ cellCount }) => {
         <button className="my-2 mx-2 w-20" onClick={() => setSelectedIndex(selectedIndex + 1)}>
           Next
         </button>
+
       </div>
+
+      <div className='absolute inset-y-1/4 h-[60vh] w-40 hover:shadow hover:shadow-white'>
+        <div className='relative h-full w-full'>
+          <div className='absolute h-2 w-[30vh] rounded bg-white transform rotate-[55deg] top-[50px] left-50'></div>
+          <div className='absolute h-2 w-[30vh] rounded bg-white transform -rotate-[55deg] top-[57%] right-50'></div>
+        </div>        
+      </div>
+
+      {/* <div className='absolute inset-y-2/4'>
+        <div className='h-2 w-[30vh] rounded bg-white rotate-45'></div>
+        <div className='h-2 w-[30vh] rounded bg-white -rotate-45'></div>
+      </div> */}
       
     </div>
   );
@@ -308,7 +318,7 @@ export const Third = () => {
       <div ref={element} className="animate-imageTransition">
         
         <div className="mb-10 ">
-          <Carousel cellCount={9} />
+          <Carousel cellCount={5} />
         </div> 
         {/* <div className="h-[60vh] pt-[30px] saira lg:hidden">
           <div className="h-[60vh] w-[300px] md:w-[600px] brightness-[0.90] rounded-lg mx-auto relative overflow-hidden z-0">
