@@ -15,6 +15,10 @@ interface ElmOfRoadmapInterface {
   locked: boolean;
 }
 
+interface CarouselProps {
+  cellCount: number;
+}
+
 const listOfRoadmapElm: ElmOfRoadmapInterface[] = [
   {
     backgroundImageDef: 'bg-roadmap-tunnel',
@@ -91,6 +95,46 @@ const CarreDeNavigation = (props: RoadmapNavigation) => {
   );
 };
 
+const Carousel: React.FC<CarouselProps> = ({ cellCount }) => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  function rotateCarousel() {
+    const angle = selectedIndex / cellCount * -360;
+    return (
+      <div className="scene">
+            <div className="carousel" style={{
+          transform: `translateZ(-288px) rotateY(${angle}deg)`
+        }}>
+              <div className="carousel__cell">1</div>
+              <div className="carousel__cell">2</div>
+              <div className="carousel__cell">3</div>
+              <div className="carousel__cell">4</div>
+              <div className="carousel__cell">5</div>
+              <div className="carousel__cell">6</div>
+              <div className="carousel__cell">7</div>
+              <div className="carousel__cell">8</div>
+              <div className="carousel__cell">9</div>
+            </div>
+          </div>
+    );
+  }
+
+  return (
+    <div>
+      {rotateCarousel()}
+      <div className='flex justify-center text-white'>
+        <button className="my-2 mx-2 w-20 bg-grey" onClick={() => setSelectedIndex(selectedIndex - 1)}>
+          Previous
+        </button>
+        <button className="my-2 mx-2 w-20" onClick={() => setSelectedIndex(selectedIndex + 1)}>
+          Next
+        </button>
+      </div>
+      
+    </div>
+  );
+};
+
 export const Third = () => {
   const [indexRoadmap, setCompteur] = useState(0);
   const addIndex = () => {
@@ -99,6 +143,7 @@ export const Third = () => {
 
   const element = useRef(null);
   const [isAnimated, setIsAnimated] = useState(false);
+
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -257,10 +302,15 @@ export const Third = () => {
       </>
     );
   }
+
   return (
     <>
       <div ref={element} className="animate-imageTransition">
-        <div className="h-[60vh] pt-[30px] saira lg:hidden">
+        
+        <div className="mb-10 ">
+          <Carousel cellCount={9} />
+        </div> 
+        {/* <div className="h-[60vh] pt-[30px] saira lg:hidden">
           <div className="h-[60vh] w-[300px] md:w-[600px] brightness-[0.90] rounded-lg mx-auto relative overflow-hidden z-0">
             <div
               className={`h-full w-[500%] absolute tansform ${backgroundSlide()} transition-transform duration-700 ease`}
@@ -335,7 +385,8 @@ export const Third = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+               
         <div className="xl:h-[100vh] lg:h-[80vh] w-full bg-transparent flex justify-center">
           <div className="bg-no-repeat xl:h-[100vh] lg:h-[80vh] bg-center bg-contain bg-[url('/static/images/ROADMAP.png')] bg-transparent rounded-lg w-[95%]"></div>
         </div>
