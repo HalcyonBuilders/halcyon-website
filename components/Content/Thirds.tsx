@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 
 interface RoadmapNavigation {
@@ -95,24 +96,36 @@ const CarreDeNavigation = (props: RoadmapNavigation) => {
   );
 };
 
+const CarouserCard : React.FC<CarouselProps> = ({ cellCount }) => {
+  const theta = 360 / cellCount;
+  const radius = Math.round( ( 300 / 2) / Math.tan( Math.PI / cellCount ) );
+
+  return (<>
+    <div className={`${listOfRoadmapElm[0].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>1</div>
+    <div className={`${listOfRoadmapElm[1].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>2</div>
+    <div className={`${listOfRoadmapElm[2].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>3</div>
+    <div className={`${listOfRoadmapElm[3].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>4</div>
+    <div className={`${listOfRoadmapElm[4].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>5</div>
+  </>);
+};
+
 const Carousel: React.FC<CarouselProps> = ({ cellCount }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   function rotateCarousel() {
     const angle = selectedIndex / cellCount * -360;
     return ( 
-      <div className="scene">
+      <>
+        <div className="scene">
             <div className="carousel" style={{
           transform: `translateZ(-288px) rotateY(${angle}deg)`
         }}>
-              <div className={`${listOfRoadmapElm[0].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>1
-              </div>
-              <div className={`${listOfRoadmapElm[1].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>2</div>
-              <div className={`${listOfRoadmapElm[2].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>3</div>
-              <div className={`${listOfRoadmapElm[3].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>4</div>
-              <div className={`${listOfRoadmapElm[4].backgroundImageDef} bg-center opacity-90 bg-cover carousel__cell`}>5</div>
-            </div>
+            <CarouserCard cellCount={5} />
           </div>
+        </div>
+      </>
+      
+      
     )
   }
 
@@ -128,8 +141,7 @@ const Carousel: React.FC<CarouselProps> = ({ cellCount }) => {
         </button>
 
       </div>
-
-      <div className='absolute inset-y-1/4 h-[60vh] w-40 hover:shadow hover:shadow-white'>
+      <div className='relative inset-y-1/4 h-[60vh] w-40 hover:shadow hover:shadow-white bg-red-500'>
         <div className='relative h-full w-full'>
           <div className='absolute h-2 w-[30vh] rounded bg-white transform rotate-[55deg] top-[50px] left-50'></div>
           <div className='absolute h-2 w-[30vh] rounded bg-white transform -rotate-[55deg] top-[57%] right-50'></div>
