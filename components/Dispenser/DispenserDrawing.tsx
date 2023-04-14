@@ -6,12 +6,12 @@ import { useHandleResult } from '../../backend/dispenser/useHandleResult';
 import { useEffect, useMemo, useState } from 'react';
 import UserStatus from '../UserStatus/UserStatus';
 import useAuth from '../../hooks/useAuth';
-import { useWalletKit } from '@mysten/wallet-kit';
+import { useWallet } from '@suiet/wallet-kit';
 import { createHalcyonProfile, doesRowExist } from '../../utils/supabase';
 
 const DispenserDrawing = () => {
   const { session } = useAuth();
-  const { currentAccount } = useWalletKit();
+  const wallet = useWallet();
   const config = useConfigStore((state) => state);
   const user = useUserStore((state) => state);
   const { filledBottleIds, emptyBottleIds, ticketIds, roles, isWetlisted, removeBottles } = user;
@@ -37,15 +37,15 @@ const DispenserDrawing = () => {
     async function createProfile() {
       // If user is discord auth and wallet connected
       // add him to the db
-      if (currentAccount && session) {
+      if (wallet.connected && session) {
         const userId = session.user.id;
         const doesExist = await doesRowExist(userId);
         if (!doesExist)
-          await createHalcyonProfile(session.user.identities![0].id, currentAccount.address);
+          await createHalcyonProfile(session.user.identities![0].id, wallet.address!);
       }
     }
     createProfile();
-  }, [currentAccount, session]);
+  }, [wallet.connected, wallet.address, session]);
 
   const dispenser = useDispenserStore((state) => state);
   const {
@@ -190,7 +190,7 @@ const DispenserDrawing = () => {
             <div className="text-center uppercase font-light mt-36">Connect with both Discord and a Sui Wallet</div>
         </div> */}
         <div className="mt-8">{
-          session && currentAccount !== null ?
+          (session && wallet.connected) ?
             <UserStatus /> :
             <div className="flex justify-center items-center h-10 text-center uppercase font-light mt-36">Connect with both Discord and a Sui Wallet</div>
           }

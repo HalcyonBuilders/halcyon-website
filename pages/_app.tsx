@@ -12,8 +12,8 @@ import { Footer } from '../components/Footer/Footer';
 import LoadingPage from '../components/Loading/LoadingPage';
 import '../styles/globals.css';
 
-const WalletKitProvider = dynamic(
-  () => import('@mysten/wallet-kit').then((mod) => mod.WalletKitProvider),
+const WalletProvider = dynamic(
+  () => import('@suiet/wallet-kit').then((mod) => mod.WalletProvider),
   {
     ssr: false,
     loading: LoadingPage
@@ -62,9 +62,9 @@ export default function App({
       supabaseClient={supabaseClient}
       initialSession={pageProps.initialSession}>
       <Navbar />
-      <WalletKitProvider>
+      <WalletProvider>
         <Component {...pageProps} />
-      </WalletKitProvider>
+      </WalletProvider>
       <Footer />
     </SessionContextProvider>
     </>

@@ -1,14 +1,14 @@
-import { ConnectButton, useWalletKit } from '@mysten/wallet-kit';
+import { ConnectButton, useWallet, ErrorCode } from '@suiet/wallet-kit';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { FiLogOut } from 'react-icons/fi';
 
 const SuiConnect = () => {
-  const { currentAccount, disconnect } = useWalletKit();
+  const wallet = useWallet();
 
   return (
     <div id="sui-connect">
-      {currentAccount ? (
+      {wallet.connected ? (
         <div className="flex items-center">
           <Image
             width={40}
@@ -18,17 +18,26 @@ const SuiConnect = () => {
             src="/static/images/suiLogo.png"
           />
           <div>
-            {currentAccount.address.slice(0, 5)}...{currentAccount.address.slice(-5)}
+            {wallet.address!.slice(0, 5)}...{wallet.address!.slice(-5)}
           </div>
           <button
             id="sui-disconnect"
             className="text-gray-400 hover:text-blue-600 font-bold py-2 px-3 rounded-full"
-            onClick={() => disconnect()}>
+            onClick={() => wallet.disconnect()}>
             <FiLogOut />
           </button>
         </div>
       ) : (
-        <ConnectButton style={{width: 'full'}} connectText={'Connect Wallet'} />
+          <ConnectButton
+            onConnectError={(error) => {
+              if (error.code === ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED) {
+                console.warn('user rejected the connection to ' + error.details?.wallet)
+              } else {
+                console.warn('unknown connect error: ', error)
+              }
+            }}
+          />
+        // <ConnectButton style={{width: 'full'}} connectText={'Connect Wallet'} />
       )}
     </div>
   );

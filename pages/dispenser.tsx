@@ -32,10 +32,10 @@ export async function getServerSideProps() {
 
 export default function Dispenser() {
   useStoreConfig('testnet');
-  const { currentAccount } = useWalletKit();
+  // const { currentAccount } = useWalletKit();
   useStoreContractInfo();
   const dispenser = useDispenserStore();  
-  useStoreUserInfo(currentAccount?.address, dispenser);
+  // useStoreUserInfo(currentAccount?.address, dispenser);
   const user = useUserStore();
   console.log("USER STORE: ", user);
   console.log("DISPENSER STORE: ", dispenser);

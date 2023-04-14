@@ -1,4 +1,4 @@
-import { useWalletKit } from '@mysten/wallet-kit';
+import { useWallet } from '@suiet/wallet-kit';
 import { useUserStore, useDispenserStore, useConfigStore } from '../../store/store';
 import { TransactionBlock } from '@mysten/sui.js';
 
@@ -7,7 +7,7 @@ import { TransactionBlock } from '@mysten/sui.js';
 // onClick={() => buyRandomBottle}
 
 export const useSendTx = () => {
-  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { signAndExecuteTransactionBlock } = useWallet();
   const config = useConfigStore();
 
   const { testCoinIds, ticketIds, emptyBottleIds, filledBottleIds, magicNumber } = useUserStore(
@@ -31,7 +31,6 @@ export const useSendTx = () => {
       return await signAndExecuteTransactionBlock({
         transactionBlock: tx,
         requestType: 'WaitForEffectsCert',
-        chain: 'sui:sui',
         options: {
           showEffects: true,
           showEvents: true,
@@ -69,7 +68,6 @@ export const useSendTx = () => {
       return await signAndExecuteTransactionBlock({
         transactionBlock: tx,
         requestType: 'WaitForEffectsCert',
-        chain: 'sui:sui',
         options: {
           showEffects: true,
           showEvents: true,
@@ -92,7 +90,6 @@ export const useSendTx = () => {
       return await signAndExecuteTransactionBlock({
         transactionBlock: tx,
         requestType: 'WaitForEffectsCert',
-        chain: 'sui:sui',
         options: {
           showEffects: true,
           showEvents: true,
@@ -121,7 +118,6 @@ export const useSendTx = () => {
       return await signAndExecuteTransactionBlock({
         transactionBlock: tx,
         requestType: 'WaitForEffectsCert',
-        chain: 'sui:sui',
         options: {
           showEffects: true,
           showEvents: true,
@@ -144,7 +140,6 @@ export const useSendTx = () => {
       return await signAndExecuteTransactionBlock({
         transactionBlock: tx,
         requestType: 'WaitForEffectsCert',
-        chain: 'sui:sui',
         options: {
           showEffects: true,
           showEvents: true,
@@ -167,7 +162,6 @@ export const useSendTx = () => {
       return await signAndExecuteTransactionBlock({
         transactionBlock: tx,
         requestType: 'WaitForEffectsCert',
-        chain: 'sui:sui',
         options: {
           showEffects: true,
           showEvents: true,
@@ -190,7 +184,6 @@ export const useSendTx = () => {
       return await signAndExecuteTransactionBlock({
         transactionBlock: tx,
         requestType: 'WaitForEffectsCert',
-        chain: 'sui:sui',
         options: {
           showEffects: true,
           showEvents: true,
