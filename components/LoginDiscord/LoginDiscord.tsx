@@ -21,7 +21,7 @@ export default function LoginDiscord() {
   return (
     <div>
       <button
-        className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 w-full rounded"
+        className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2.5 px-4 w-full rounded text-sm"
         onClick={signInWithDiscord}>
         Login with Discord
       </button>

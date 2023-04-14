@@ -2,13 +2,15 @@ import { ConnectButton, useWalletKit } from '@mysten/wallet-kit';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { FiLogOut } from 'react-icons/fi';
+import { SignInButton } from 'ethos-connect'
+import { ethos } from 'ethos-connect';
 
 const SuiConnect = () => {
-  const { currentAccount, disconnect } = useWalletKit();
+  const { wallet } = ethos.useWallet();
 
   return (
     <div id="sui-connect">
-      {currentAccount ? (
+      {wallet?.accounts ? (
         <div className="flex items-center">
           <Image
             width={40}
@@ -18,17 +20,18 @@ const SuiConnect = () => {
             src="/static/images/suiLogo.png"
           />
           <div>
-            {currentAccount.address.slice(0, 5)}...{currentAccount.address.slice(-5)}
+            {ethos.truncateMiddle(wallet!.address, 4)}
           </div>
           <button
             id="sui-disconnect"
             className="text-gray-400 hover:text-blue-600 font-bold py-2 px-3 rounded-full"
-            onClick={() => disconnect()}>
+            onClick={() => wallet?.disconnect()}>
             <FiLogOut />
           </button>
         </div>
       ) : (
-        <ConnectButton style={{width: 'full'}} connectText={'Connect Wallet'} />
+        <SignInButton style={{width: 'full'}}>Connect Wallet</SignInButton>
+        // <ConnectButton style={{width: 'full'}} connectText={'Connect Wallet'} />
       )}
     </div>
   );

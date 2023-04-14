@@ -12,6 +12,8 @@ import { Footer } from '../components/Footer/Footer';
 import LoadingPage from '../components/Loading/LoadingPage';
 import '../styles/globals.css';
 
+import { Chain, EthosConnectProvider } from 'ethos-connect';
+
 const WalletKitProvider = dynamic(
   () => import('@mysten/wallet-kit').then((mod) => mod.WalletKitProvider),
   {
@@ -62,9 +64,15 @@ export default function App({
       supabaseClient={supabaseClient}
       initialSession={pageProps.initialSession}>
       <Navbar />
-      <WalletKitProvider>
+      <EthosConnectProvider
+        ethosConfiguration={{
+          chain: Chain.SUI_TESTNET,
+          network: 'https://sui-testnet.nodeinfra.com/', // Optional. Defaults to https://fullnode.devnet.sui.io/ 
+          hideEmailSignIn: true // Optional.  Defaults to false
+        }}
+      >
         <Component {...pageProps} />
-      </WalletKitProvider>
+      </EthosConnectProvider>
       <Footer />
     </SessionContextProvider>
     </>

@@ -7,6 +7,7 @@ import { supabase } from '../utils/supabase';
 import useStoreContractInfo from '../backend/dispenser/useStoreContractInfo';
 import { useUserStore, useDispenserStore } from '../store/store';
 import useStoreConfig from '../backend/dispenser/useStoreConfig';
+import { ethos } from 'ethos-connect';
 
 // pour forcer dynamiquement le refresh des roles par exemple
 //export const dynamic = 'force-dynamic';
@@ -32,10 +33,10 @@ export async function getServerSideProps() {
 
 export default function Dispenser() {
   useStoreConfig('testnet');
-  const { currentAccount } = useWalletKit();
+  const { wallet } = ethos.useWallet();
   useStoreContractInfo();
   const dispenser = useDispenserStore();  
-  useStoreUserInfo(currentAccount?.address, dispenser);
+  useStoreUserInfo(wallet?.address, dispenser);
   const user = useUserStore();
   console.log("USER STORE: ", user);
   console.log("DISPENSER STORE: ", dispenser);

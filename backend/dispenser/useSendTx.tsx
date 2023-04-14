@@ -1,13 +1,13 @@
 import { useWalletKit } from '@mysten/wallet-kit';
 import { useUserStore, useDispenserStore, useConfigStore } from '../../store/store';
-import { TransactionBlock } from '@mysten/sui.js';
+import { TransactionBlock, ethos } from 'ethos-connect';
 
 // hook donnant accès à 6 fonctions permettant d'envoyer les 6 tx au sc
 // const { buyRandomBottle } = useSendTx;
 // onClick={() => buyRandomBottle}
 
 export const useSendTx = () => {
-  const { signAndExecuteTransactionBlock } = useWalletKit();
+  const { wallet } = ethos.useWallet();
   const config = useConfigStore();
 
   const { testCoinIds, ticketIds, emptyBottleIds, filledBottleIds, magicNumber } = useUserStore(
@@ -28,10 +28,9 @@ export const useSendTx = () => {
         ]
       });
 
-      return await signAndExecuteTransactionBlock({
+      return await wallet?.signAndExecuteTransactionBlock({
         transactionBlock: tx,
-        requestType: 'WaitForEffectsCert',
-        chain: 'sui:sui',
+        requestType: 'WaitForLocalExecution',
         options: {
           showEffects: true,
           showEvents: true,
@@ -66,10 +65,9 @@ export const useSendTx = () => {
         ]
       });
 
-      return await signAndExecuteTransactionBlock({
+      return await wallet?.signAndExecuteTransactionBlock({
         transactionBlock: tx,
-        requestType: 'WaitForEffectsCert',
-        chain: 'sui:sui',
+        requestType: 'WaitForLocalExecution',
         options: {
           showEffects: true,
           showEvents: true,
@@ -89,10 +87,9 @@ export const useSendTx = () => {
         arguments: [tx.object(config.dispenser), tx.object(ticketIds[0])]
       });
 
-      return await signAndExecuteTransactionBlock({
+      return await wallet?.signAndExecuteTransactionBlock({
         transactionBlock: tx,
-        requestType: 'WaitForEffectsCert',
-        chain: 'sui:sui',
+        requestType: 'WaitForLocalExecution',
         options: {
           showEffects: true,
           showEvents: true,
@@ -118,10 +115,9 @@ export const useSendTx = () => {
         ]
       });
 
-      return await signAndExecuteTransactionBlock({
+      return await wallet?.signAndExecuteTransactionBlock({
         transactionBlock: tx,
-        requestType: 'WaitForEffectsCert',
-        chain: 'sui:sui',
+        requestType: 'WaitForLocalExecution',
         options: {
           showEffects: true,
           showEvents: true,
@@ -141,10 +137,9 @@ export const useSendTx = () => {
         arguments: [tx.object(filledBottleIds[0])]
       });
 
-      return await signAndExecuteTransactionBlock({
+      return await wallet?.signAndExecuteTransactionBlock({
         transactionBlock: tx,
-        requestType: 'WaitForEffectsCert',
-        chain: 'sui:sui',
+        requestType: 'WaitForLocalExecution',
         options: {
           showEffects: true,
           showEvents: true,
@@ -164,10 +159,9 @@ export const useSendTx = () => {
         arguments: [tx.pure(magicNumber)]
       });
 
-      return await signAndExecuteTransactionBlock({
+      return await wallet?.signAndExecuteTransactionBlock({
         transactionBlock: tx,
-        requestType: 'WaitForEffectsCert',
-        chain: 'sui:sui',
+        requestType: 'WaitForLocalExecution',
         options: {
           showEffects: true,
           showEvents: true,
@@ -187,10 +181,9 @@ export const useSendTx = () => {
         arguments: [tx.pure(magicNumber)]
       });
 
-      return await signAndExecuteTransactionBlock({
+      return await wallet?.signAndExecuteTransactionBlock({
         transactionBlock: tx,
-        requestType: 'WaitForEffectsCert',
-        chain: 'sui:sui',
+        requestType: 'WaitForLocalExecution',
         options: {
           showEffects: true,
           showEvents: true,
